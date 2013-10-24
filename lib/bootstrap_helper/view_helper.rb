@@ -21,5 +21,23 @@ module BootstrapHelper
       end
     end
 
+    def btn_to(arg0, arg1 = nil, arg2 = nil, arg3 = nil)
+      css, opts = block_given? ? [arg1, arg2] : [arg2, arg3]
+      css ||= %w{btn-default}
+      opts ||= {}
+
+      cls = (%w{btn} << css).flatten.compact.join(' ')
+
+      options = {class: cls}.merge(opts)
+
+      if block_given?
+        link_to arg0, options do
+          yield
+        end
+      else
+        link_to arg0, arg1, options
+      end
+    end
+
   end
 end
