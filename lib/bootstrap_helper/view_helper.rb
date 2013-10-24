@@ -39,5 +39,10 @@ module BootstrapHelper
       end
     end
 
+    def bicon(icon)
+      cls = %w{glyphicon} + ["glyphicon-#{icon}"]
+      content_tag 'span', '', class: cls.join(" ")
+    end
+
   end
 end
