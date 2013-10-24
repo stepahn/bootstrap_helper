@@ -13,5 +13,13 @@ module BootstrapHelper
       content_tag(:dt, label) + content_tag(:dd, value)
     end
 
+    def bpage_header
+      content_tag :div, class: 'page-header' do
+        content_tag :h1 do
+          yield
+        end
+      end
+    end
+
   end
 end
