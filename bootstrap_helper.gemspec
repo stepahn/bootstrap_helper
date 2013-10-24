@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = BootstrapHelper::VERSION
   spec.authors       = ["Stephan Zalewski"]
   spec.email         = ["stephan@foo-labs.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{bootstrap helper}
+  spec.summary       = %q{bootstrap helper}
   spec.homepage      = ""
   spec.license       = "MIT"
 
