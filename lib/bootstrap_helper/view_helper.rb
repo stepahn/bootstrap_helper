@@ -1,3 +1,4 @@
+require 'bootstrap_helper/dropdown_builder'
 module BootstrapHelper
   module ViewHelper
     def bdesc
@@ -39,10 +40,23 @@ module BootstrapHelper
       end
     end
 
+    def btn_toggle_drowpdown(cls = %w{btn-default})
+      default_cls = %w{btn dropdown-toggle}
+      _cls = (default_cls + cls).flatten.compact.join(' ')
+      content_tag 'button', type: 'button', class: _cls, data: {toggle: 'dropdown'} do
+        tag 'span', class: 'caret'
+      end
+    end
+
     def bicon(icon)
       cls = %w{glyphicon} + ["glyphicon-#{icon}"]
       content_tag 'span', '', class: cls.join(" ")
     end
 
+    def btn_dropdown(cls = 'btn-default', &block)
+      b = DropdownBuilder.new(cls, self)
+      b.instance_eval(&block)
+      b.render
+    end
   end
 end
