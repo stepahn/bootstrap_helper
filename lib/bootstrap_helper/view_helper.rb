@@ -64,5 +64,10 @@ module BootstrapHelper
     def bootstrap_form_for(record, options = {}, &block)
       form_for(record, options.reverse_merge(builder: FormBuilder), &block)
     end
+
+    def blb(text, *extra_classes)
+      css_class = (%w(label label-default) << extra_classes).flatten.compact.join(' ')
+      content_tag :span, text, class: css_class
+    end
   end
 end
