@@ -30,10 +30,10 @@ module BootstrapHelper
     end
 
 
-    %w[email_field text_field text_area password_field collection_select].each do |method_name|
+    %w[email_field text_field text_area password_field file_field].each do |method_name|
       define_method(method_name) do |name, *args|
 
-        has_error = object.errors.include?(name)
+        has_error = error_on?(name)
 
         group_cls = 'has-error' if has_error
 
@@ -59,6 +59,64 @@ module BootstrapHelper
 
         form_group group_cls do
           field_label(name, *args) + input
+        end
+      end
+    end
+
+    def select(method, choices, options = {}, html_options = {})
+      has_error = error_on?(method)
+
+      group_cls = 'has-error' if has_error
+
+      html_options.reverse_merge!(tabindex: tabindex)
+      merge_class!(html_options, 'form-control')
+
+      error_tag = error_tag_for(method) if has_error
+
+      input = if horizontal?
+        right_col do
+          super + error_tag
+        end
+      else
+        super + error_tag
+      end
+
+      form_group group_cls do
+        field_label(method, options) + input
+      end
+    end
+
+    def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
+      has_error = error_on?(method)
+
+      group_cls = 'has-error' if has_error
+
+      html_options.reverse_merge!(tabindex: tabindex)
+      merge_class!(html_options, 'form-control')
+
+      error_tag = error_tag_for(method) if has_error
+
+      input = if horizontal?
+        right_col do
+          super + error_tag
+        end
+      else
+        super + error_tag
+      end
+
+      form_group group_cls do
+        field_label(method, options) + input
+      end
+    end
+
+    def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+      form_group do
+        right_col(true) do
+          content_tag :div, class: 'checkbox' do
+            content_tag :label do
+              super + ' ' + object.class.human_attribute_name(method)
+            end
+          end
         end
       end
     end
@@ -120,6 +178,15 @@ module BootstrapHelper
       content_tag :div, class: to_class(cls) do
         yield
       end
+    end
+
+    def error_on?(method)
+      object.errors.include?(method)
+    end
+
+    def error_tag_for(method)
+      error_messages = object.errors.full_messages_for(method).join(" ")
+      content_tag('span', error_messages, class: 'help-block')
     end
   end
 end
