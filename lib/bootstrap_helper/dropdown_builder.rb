@@ -29,17 +29,15 @@ module BootstrapHelper
       nil
     end
 
-    def dropdown(arg0, arg1=nil)
+    def dropdown(*args)
       if block_given?
         anchor = capture do
           yield
         end
-        href = arg0
-      else
-        anchor, href = arg0, arg1
+        args = args.unshift(anchor)
       end
 
-      @menu << link_to(anchor, href)
+      @menu << link_to(*args)
       nil
     end
   end
