@@ -1,5 +1,4 @@
 require 'bootstrap_helper/dropdown_builder'
-require 'bootstrap_helper/form_builder'
 
 module BootstrapHelper
   module ViewHelper
@@ -59,10 +58,6 @@ module BootstrapHelper
       b = DropdownBuilder.new(cls, self)
       b.instance_eval(&block)
       b.render
-    end
-
-    def bootstrap_form_for(record, options = {}, &block)
-      form_for(record, options.reverse_merge(builder: FormBuilder), &block)
     end
 
     def blb(text, *extra_classes)
