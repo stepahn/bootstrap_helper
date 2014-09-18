@@ -25,10 +25,10 @@ module BootstrapHelper
 
     def btn_to(arg0, arg1 = nil, arg2 = nil, arg3 = nil)
       css, opts = block_given? ? [arg1, arg2] : [arg2, arg3]
-      css ||= %w{btn-default}
+      css ||= []
       opts ||= {}
 
-      cls = (%w{btn} << css).flatten.compact.join(' ')
+      cls = (%w{btn btn-default} << css).flatten.compact.join(' ')
 
       options = {class: cls}.merge(opts)
 
