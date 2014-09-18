@@ -41,6 +41,24 @@ module BootstrapHelper
       end
     end
 
+    def delete_link_to(path, options = {}, &block)
+      opts = options.reverse_merge(method: :delete, data: {confirm: t('actions.delete.confirm')})
+      link_to path, opts, &block
+    end
+
+    def delete_btn_to(path, css = nil)
+      cls = (%w{btn btn-danger} << css).compact.join(' ')
+
+      delete_link_to path, class: cls do
+        if block_given?
+          yield
+        else
+          concat bicon(:trash)
+          concat t('actions.buttons.delete')
+        end
+      end
+    end
+
     def btn_toggle_drowpdown(cls = %w{btn-default})
       default_cls = %w{btn dropdown-toggle}
       _cls = (default_cls + cls).flatten.compact.join(' ')
