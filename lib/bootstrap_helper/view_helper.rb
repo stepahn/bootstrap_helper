@@ -87,5 +87,9 @@ module BootstrapHelper
       css_class = (%w(label label-default) << extra_classes).flatten.compact.join(' ')
       content_tag :span, text, class: css_class
     end
+
+    def bool_label(bool, label_true, label_false, class_true = 'label-info', class_false = nil)
+      bool == true ? blb(label_true, class_true) : blb(label_false, class_false)
+    end
   end
 end
