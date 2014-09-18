@@ -60,6 +60,11 @@ module BootstrapHelper
       b.render
     end
 
+    def badge(count, css='')
+      css_class = ['badge', css].compact.join(' ')
+      content_tag :span, count, class: css_class
+    end
+
     def blb(text, *extra_classes)
       css_class = (%w(label label-default) << extra_classes).flatten.compact.join(' ')
       content_tag :span, text, class: css_class
